@@ -8,30 +8,22 @@ import 'counter_cubit.dart';
 
 class SubPage extends StatelessWidget {
 
+  CounterCubit counterCubit;
+  SubPage(CounterCubit counterCubit){
+    this.counterCubit=counterCubit;
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text('Sub Page'),
-        automaticallyImplyLeading: false,
       ),
 
-      body: BlocProvider(
-        create: (context) => CounterCubit(),
+      body: BlocProvider<CounterCubit>.value(
+        value: counterCubit,
         child: CounterView(),
       ),
 
-      floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.arrow_back),
-        onPressed: () {
-          navigateToMainPage(context);
-        },
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
-  }
-
-  Future navigateToMainPage(context) async {
-    await Navigator.push(context, MaterialPageRoute(builder: (context) => MainPage()));
   }
 }
